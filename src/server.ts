@@ -1,5 +1,10 @@
-const express = require("express");
-const axios = require("axios");
+import { config } from "dotenv";
+
+import express, { Request, Response } from "express";
+import axios from "axios";
+
+// dotenv config
+config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -7,12 +12,12 @@ const port = process.env.PORT || 3000;
 // important if app is behind a proxy
 app.set("trust proxy", true);
 
-app.get("/api/hello", async (req, res) => {
-  const visitorName = req.query.visitor_name || "Guest";
+app.get("/api/hello", async (req: Request, res: Response) => {
+  const visitorName = (req.query.visitor_name as string) || "Guest";
 
   // Get client's IP address
   const clientIp =
-    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    (req.headers["x-forwarded-for"] as string) || req.connection.remoteAddress;
 
   try {
     // Fetch location based on IP address
@@ -27,7 +32,7 @@ app.get("/api/hello", async (req, res) => {
     );
     const temperature = weatherResponse.data.current_weather.temperature;
 
-    const greeting = `Hello, ${visitorName}!, the temperature is ${temperature} degrees Celcius in ${location}`;
+    const greeting = `Hello, ${visitorName}!, the temperature is ${temperature} degrees Celsius in ${location}`;
 
     res.json({
       client_ip: clientIp,
@@ -44,3 +49,5 @@ app.get("/api/hello", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on Port: ${port}`);
 });
+
+export default app;
