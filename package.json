@@ -1,11 +1,13 @@
 {
   "name": "hng-stage-one-task-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js",
-    "dev": "nodemon dist/server.js"
+    "start": "node src/server.ts",
+    "build": "tsc",
+    "dev": "nodemon src/server.ts",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",

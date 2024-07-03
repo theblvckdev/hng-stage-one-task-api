@@ -39,3 +39,4 @@ out/
 # TypeScript compiler output
 *.js
 *.js.map
+.vercel
